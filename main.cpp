@@ -8,6 +8,8 @@ int main() {
     ifstream inFS;
     ofstream OUT;
     inFS.open("array.txt");
+    OUT.open("array.txt");
+    char C;
 
     if (!inFS.is_open()) {
         cout << "Could not open file " << "array.txt" << endl;
@@ -22,12 +24,13 @@ int main() {
         table[i] = new int[nCols];
     }
 
+
     // read table data
-    cout<<"Enter your numbers: ";
+    OUT<<"Enter your numbers: ";
     for(int i = 0; i < nRows; i++) {
         for(int j = 0; j < nCols; j++) {
             try {
-              readEntry(array.txt, table[i][j]);
+              readEntry(inFS, table[i][j]);
             }
             catch (int x) {
                     cout << "Entry " << i << "," << j << " not an integer, was set to " << x << ", now setting it to 0" << endl;
@@ -58,12 +61,13 @@ int main() {
     }
     delete [] table;
 
+
 }
 
-void readEntry(fstream &inFile, int& entry) {
+void readEntry(ifstream& inFile, int& entry) {
 
-    cin >> entry;
-    if(cin.fail()) {
+    inFile >> entry;
+    if(inFile.fail()) {
         throw entry;
     }
 }
