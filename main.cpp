@@ -5,12 +5,18 @@ using namespace std;
 void readEntry( int& entry);
 
 int main() {
+    ifstream inFS;
+    ofstream OUT;
+    inFS.open("array.txt");
 
-
+    if (!inFS.is_open()) {
+        cout << "Could not open file " << "array.txt" << endl;
+        return 1;
+    }
     // read table dimensions and allocate 2D array
     int nRows, nCols;
     cout<<"Enter the number of rows and columns: ";
-    cin >> nRows >> nCols;
+    inFS >> nRows >> nCols;
     int** table = new int*[nRows];
     for(int i = 0; i < nRows; i++) {
         table[i] = new int[nCols];
@@ -21,7 +27,7 @@ int main() {
     for(int i = 0; i < nRows; i++) {
         for(int j = 0; j < nCols; j++) {
             try {
-              readEntry(table[i][j]);
+              readEntry(array.txt, table[i][j]);
             }
             catch (int x) {
                     cout << "Entry " << i << "," << j << " not an integer, was set to " << x << ", now setting it to 0" << endl;
@@ -32,6 +38,8 @@ int main() {
             }
         }
     }
+    inFS.open("array.txt");
+
 
 
     // write table data to the screen in transposed order
@@ -52,7 +60,7 @@ int main() {
 
 }
 
-void readEntry( int& entry) {
+void readEntry(fstream &inFile, int& entry) {
 
     cin >> entry;
     if(cin.fail()) {
